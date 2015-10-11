@@ -1,4 +1,6 @@
+from nltk.compat import raw_input
 from TextModifier import TextModifier
+import NGMaker
 
 from nltk.util import ngrams
 from nltk.probability import FreqDist
@@ -29,9 +31,10 @@ class Main:
     bigramN = 2
     trigramN = 3
 
-    mn = MakeNgram(stemmedc)
-    bigramc = mn.makeBigram(stemmedc)
-    listWithProb = mn.countProbability(bigramc)
+    nm = NGMaker(stemmedc)
+    unigramc = nm.makeUnigram(stemmedc)
+    bigramc = nm.makeBigram(stemmedc)
+    listWithProb = nm.countProbability(bigramc)
 
 
 
@@ -81,7 +84,7 @@ class Main:
     fdist2 = FreqDist(bigram)
 
     for j,v in fdist2.items():
-        print j,v
+        print (j,v)
 
 
     for word in word_tokenize(sent):
