@@ -1,8 +1,10 @@
+from __future__ import division
 #hsd
 from nltk.util import ngrams
+
 from nltk.probability import FreqDist, LidstoneProbDist
 
-class MakeNgram():
+class NGMaker():
 
 
     def __init__( self, listInput ):
@@ -10,15 +12,21 @@ class MakeNgram():
 
     def _setugram(self, listInput):
         self._uniGram = listInput
-
-    def _setuFdist(self):
-        self._uniFdist = FreqDist(self._uniGram)
+        pdist = self._setuFdist()
+        print (pdist)
+        return pdist
 
     def makeBigram(self, listInput):
         bigram = ngrams(listInput, 2)
-        for bigram in bigram:
-            print (bigram)
+        #for bigram in bigram:
+            #print (bigram)
         return bigram
+
+    def _setuFdist(self):
+        self._uniFdist = FreqDist(self._uniGram)
+        return self.makeAProbMap()
+
+
 
     def makeBigramTree(self, listInput):
         bigram = self.makeBigram(listInput)
@@ -27,3 +35,10 @@ class MakeNgram():
     def countProbability(self, ngram):
         fdist = FreqDist(ngram)
 
+    def makeAProbMap(self):
+        map = {}
+        size = len(self._uniFdist)
+        print(size)
+        for j,v in self._uniFdist.items():
+            map[j] = float(v/size)
+        return map

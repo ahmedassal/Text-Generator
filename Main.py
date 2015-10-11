@@ -1,14 +1,10 @@
-from nltk.compat import raw_input
 from TextModifier import TextModifier
-import NGMaker
 
 from nltk.util import ngrams
 from nltk.probability import FreqDist
 from nltk.tokenize import word_tokenize
 import io
-from nltk.corpus import brown
-from nltk.probability import LidstoneProbDist
-from ngram import NgramModel
+from NGMaker import NGMaker
 
 
 __author__ = 'Group 48'
@@ -32,9 +28,8 @@ class Main:
     trigramN = 3
 
     nm = NGMaker(stemmedc)
-    unigramc = nm.makeUnigram(stemmedc)
+    unigram = nm._setugram(stemmedc)
     bigramc = nm.makeBigram(stemmedc)
-    listWithProb = nm.countProbability(bigramc)
 
 
 
@@ -84,7 +79,7 @@ class Main:
     fdist2 = FreqDist(bigram)
 
     for j,v in fdist2.items():
-        print (j,v)
+        print j,v
 
 
     for word in word_tokenize(sent):
