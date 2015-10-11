@@ -1,8 +1,12 @@
 from TextModifier import TextModifier
+
 from nltk.util import ngrams
 from nltk.probability import FreqDist
 from nltk.tokenize import word_tokenize
 import io
+from nltk.corpus import brown
+from nltk.probability import LidstoneProbDist
+from ngram import NgramModel
 
 
 __author__ = 'Group 48'
@@ -24,6 +28,11 @@ class Main:
     #n-gram
     bigramN = 2
     trigramN = 3
+
+    mn = MakeNgram(stemmedc)
+    bigramc = mn.makeBigram(stemmedc)
+    listWithProb = mn.countProbability(bigramc)
+
 
 
 
