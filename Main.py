@@ -1,15 +1,16 @@
 from TextModifier import TextModifier
-
-from nltk.util import ngrams
-from nltk.probability import FreqDist
-from nltk.tokenize import word_tokenize
+from nltk.corpus import treebank
 import io
 from NGMaker import NGMaker
+
+
 
 
 __author__ = 'Group 48'
 #test stuff
 class Main:
+
+
 
     c = io.open('ourcorpus.txt', mode='r', encoding='utf-8')
     corpus = c.read()
@@ -41,7 +42,6 @@ class Main:
 
     #test
 
-
     #all chars to lowercase
     lowercaseList = tmr.lowercase(tokenz)
     #remove stop words
@@ -52,12 +52,16 @@ class Main:
     print('Your input data is:')
     print(stemmed)
 
-    firstWord = stemmed.pop()
 
-    if stemmed in unigram:
-        createSent()
-    else:
-        print('no such word exists')
+    legitWords = []
+    for word in stemmed:
+        if word in unigram:
+            legitWords.append(word)
+        else:
+            print('no such word exists')
+
+
+
 
 
 

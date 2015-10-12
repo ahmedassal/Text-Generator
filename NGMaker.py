@@ -14,19 +14,19 @@ class NGMaker():
     def _setugram(self, listInput):
         self._uniGram = listInput
 
-        pdist = self._setuFdist()
+        freqList = self._setuFdist()
         #print (pdist)
 
         #hashhash
-
-
-        return pdist
+        print(freqList)
+        return freqList
 
     def _setBigram(self, listInput):
+
         bigramList = ngrams(listInput, 2)
         bigramFreq = self.countProbability(bigramList)
         outerBigram = {}
-        size = len(bigramFreq)
+        size = len(listInput)
 
         sgtBig = SimpleGoodTuringProbDist(bigramFreq)
 
@@ -50,7 +50,7 @@ class NGMaker():
         trigramList = ngrams(listInput,3)
         trigramFreq = self.countProbability(trigramList)
         outerTrigram = {}
-        size = len(trigramFreq)
+        size = len(listInput)
 
         sgtTri = SimpleGoodTuringProbDist(trigramFreq)
 
