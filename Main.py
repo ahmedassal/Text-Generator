@@ -2,7 +2,9 @@ from TextModifier import TextModifier
 from nltk.corpus import treebank
 import io
 from NGMaker import NGMaker
-
+from nltk.corpus import brown
+from nltk.parse import RecursiveDescentParser
+from nltk import Nonterminal, nonterminals, Production, CFG
 
 
 
@@ -22,7 +24,35 @@ class Main:
     noMoreStopwordsc = tmc.removeStopWords(lowercaseListc)
     stemmedc = tmc.stemmText(noMoreStopwordsc)
 
-    print(stemmedc)
+    grammar1 = CFG.fromstring("""
+    S -> NP VP
+    PP -> P NP
+    NP -> 'the' N
+    VP -> V NP
+    N -> 'noun'
+    V -> 'verb'
+    P -> 'preposition'
+    """)
+
+    grammar = {'S':{'NP':'VP'},'PP':{'P':'NP'},'NP':{'the':'N'},'VP':{'V':'NP'},'N':'noun','V':'verb','P':'preposition'}
+
+    sent = ''
+    _tmp = []
+    stepOne = grammar['S']
+
+
+
+    def _test(self, stepOne):
+        if isinstance(stepOne,dict):
+            for s in stepOne:
+                self._test(s)
+                self._tmp.append(s)
+
+        else:
+            self._tmp.append(stepOne)
+
+    print(_tmp)
+
 
     #n-gram
     bigramN = 2
@@ -35,6 +65,14 @@ class Main:
 
     response = raw_input("Please enter your input: ")
 
+    brownNewsSents = brown.sents(categories = 'news')
+
+    parser = RecursiveDescentParser(grammar)
+
+
+
+
+    print(stemmedc)
 
 
     tmr = TextModifier(response)
@@ -51,7 +89,6 @@ class Main:
 
     print('Your input data is:')
     print(stemmed)
-
 
     legitWords = []
     for word in stemmed:
